@@ -1,3 +1,4 @@
+// ---Reverb---
 // import Echo from 'laravel-echo';
 
 // import Pusher from 'pusher-js';
@@ -13,12 +14,26 @@
 //     enabledTransports: ['ws', 'wss'],
 // });
 
+// ---Socket.io and Redis---
+// import Echo from 'laravel-echo';
+// import io from 'socket.io-client';
+
+// window.io = io;
+
+// window.Echo = new Echo({
+//     broadcaster: 'socket.io',
+//     host: window.location.hostname + ':6001'
+// });
+
+// ---Pusher---
 import Echo from 'laravel-echo';
-import io from 'socket.io-client';
-
-window.io = io;
-
+ 
+import Pusher from 'pusher-js';
+window.Pusher = Pusher;
+ 
 window.Echo = new Echo({
-    broadcaster: 'socket.io',
-    host: window.location.hostname + ':6001'
+    broadcaster: 'pusher',
+    key: import.meta.env.VITE_PUSHER_APP_KEY,
+    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+    forceTLS: false
 });

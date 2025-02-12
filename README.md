@@ -156,3 +156,63 @@ npm run build
 - Enable 6001 port for socket io channel ```npm install --save ioredis``` ```npm install --save socket.io```
 - Create server.js file in root folder
 - Run the node js for 6001 port ```node server.js``` 
+
+## Real-Time Notifications using Pusher 
+
+- Send real-time notifications with Pusher. use a pusher driver to send real-time notifications using the echo server.
+
+1) Create authentication (auth) scaffolding using Laravel UI.
+2) Set up two types of users: a super admin and a normal user. We will identify them using an "is_admin" column in the users table.
+3) Create a posts table with columns for the title and body.
+4) Allow users to create posts with title and body.
+5) Once a post is created, the admin will get a realtime notification using pusher. we will create PostCreate Event for send realtime notification.
+
+<h3>Create Pusher App</h3>
+
+1) Create Account on Pusher Platform.
+2) Next, click on Get Started button.
+3) Add App Name and click to submit.
+4) Now, go to App Keys section and copy App ID, Secret, Cluster and Key and paste in .env file
+
+- Install pusher-php-server to use driver as pusher ````composer require pusher/pusher-php-server```
+
+- Install laravel echo server ```npm install --save-dev laravel-echo pusher-js```
+
+- Configure => resources/js/echo.js
+
+```
+import Echo from 'laravel-echo';
+ 
+import Pusher from 'pusher-js';
+window.Pusher = Pusher;
+ 
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: import.meta.env.VITE_PUSHER_APP_KEY,
+    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+    forceTLS: false
+});
+```
+
+-  Set the BROADCAST_CONNECTION environment variable to pusher in application's :
+
+```
+BROADCAST_CONNECTION=pusher
+
+PUSHER_APP_ID="1822914"
+PUSHER_APP_KEY="b47df8a8ea52a814246e"
+PUSHER_APP_SECRET="5f9397a869..."
+PUSHER_HOST=
+PUSHER_PORT=443
+PUSHER_SCHEME="https"
+PUSHER_APP_CLUSTER="ap2"
+
+VITE_APP_NAME="${APP_NAME}"
+VITE_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
+VITE_PUSHER_HOST="${PUSHER_HOST}"
+VITE_PUSHER_PORT="${PUSHER_PORT}"
+VITE_PUSHER_SCHEME="${PUSHER_SCHEME}"
+VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+```
+
+- again build js ```npm run build``` and run ```php artisan serve```
