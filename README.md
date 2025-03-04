@@ -281,3 +281,15 @@ php artisan make:controller RoleController
 Email: aditi@gmail.com
 Password: 123456
 ```
+
+## Socialite login with google account
+
+- Install Socialite using composer package ```composer require laravel/socialite```
+
+<h3>Create Google App</h3>
+
+- Go to https://console.cloud.google.com/projectcreate and create a new project. 
+- Click Select Project and go to APIs and Services->OAuth consent screen->add App information : app name-Laravel dev,user support email-aditisavaliya60@gmail.com and add Developer contact information-asavaliya093@rku.ac.in
+- Choose User type - External
+- Create Credentials : Select application type - web, add Authorized redirect URIs - http://127.0.0.1:8000/auth/google/callback.
+- Copy client_id,client_secret and client_redirect
